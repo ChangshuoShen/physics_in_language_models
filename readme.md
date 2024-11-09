@@ -35,8 +35,6 @@
 
 2.2 Learn from the Mistakes
 
-
-
 ## Physics of Language Models: 
 * <a href="https://arxiv.org/search/cs?searchtype=author&query=Allen-Zhu">Allen Zhu (Arxiv)</a>
 * <a href="http://zeyuan.allen-zhu.com/index.php">Allen Zhu's Homepage</a>
@@ -46,7 +44,7 @@
 
 ### Part 1: Learning Hierarchical Language Structures
 * <a href="https://arxiv.org/abs/2305.13673">Arxiv链接</a>
-* <a href="./physics_in_language_models/2305.13673v3.pdf">查看PDF</a>
+* <a href="./papers/2305.13673v3.pdf">查看PDF</a>
 #### 摘要提取
 
 1. **研究背景**：
@@ -71,7 +69,7 @@
 
 ### Part 2.1, Grade-School Math and the Hidden Reasoning Process
 * <a href="https://arxiv.org/abs/2407.20311">Arxiv链接</a>
-* <a href="./physics_in_language_models/2407.20311v1.pdf">查看PDF</a>
+* <a href="./papers/2407.20311v1.pdf">查看PDF</a>
 #### 摘要提取
 
 1. **研究背景**：
@@ -93,7 +91,7 @@
 
 ### Part 2.2, How to Learn From Mistakes on Grade-School Math Problems
 * <a href="https://arxiv.org/abs/2408.16293">Arxiv链接</a>
-* <a href="./physics_in_language_models/2408.16293v1.pdf">查看PDF</a>
+* <a href="./papers/2408.16293v1.pdf">查看PDF</a>
 #### 摘要提取
 
 1. **研究背景**：
@@ -119,7 +117,7 @@
 
 ###  Part 3.1, Knowledge Storage and Extraction
 * <a href="https://arxiv.org/abs/2309.14316">Arxiv链接</a>
-* <a href="./physics_in_language_models/2309.14316v3.pdf">查看PDF</a>
+* <a href="./papers/2309.14316v3.pdf">查看PDF</a>
 
 #### 摘要提取
 1. **研究背景**：
@@ -139,7 +137,7 @@
 
 ### Part 3.2, Knowledge Manipulation
 * <a href="https://arxiv.org/abs/2309.14402">Arxiv链接</a>
-* <a href="./physics_in_language_models/2309.14402v2.pdf">查看PDF</a>
+* <a href="./papers/2309.14402v2.pdf">查看PDF</a>
 #### 摘要提取
 
 1. **研究背景**：
@@ -163,7 +161,7 @@
 
 ### Part 3.3, Knowledge Capacity Scaling Laws
 * <a href="https://arxiv.org/abs/2404.05405">Arxiv链接</a>
-* <a href="./physics_in_language_models/2404.05405v1.pdf">查看PDF</a>
+* <a href="./papers/2404.05405v1.pdf">查看PDF</a>
 
 #### 摘要提取
 
@@ -181,5 +179,3 @@
    - **影响因素**：12项结果揭示了训练时长、模型架构、量化、稀疏性约束（如MoE）以及数据信噪比如何影响模型的知识存储容量。
    - **模型架构影响**：GPT-2架构结合旋转嵌入，在较短训练时间下匹配或超过LLaMA和Mistral架构的知识存储表现，主要原因是后者的GatedMLP结构较不稳定、训练难度更大。
    - **数据优化策略**：在训练数据前加入域名标签（如“wikipedia.org”）可显著提升模型的知识存储能力，模型可以自主识别和优先处理含有丰富知识的域，从而优化存储效率。
-
-
