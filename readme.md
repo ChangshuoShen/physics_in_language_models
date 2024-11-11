@@ -72,7 +72,7 @@ A(GPT): Yes, Joy Biden was born in 1942, which is an even year.
 ##### Result 7
 * bi-directional model like BERT $\nRightarrow$ **knowledge extraction**
 
-![summery](./imgs/summery_3_1.png)
+![summary](./imgs/summary_3_1.png)
 #### 3.2 Knowledge Manipulation (操纵)
 ![question 3.2](./imgs/question3_2.png)
 ![knowledge reverse](./imgs/knowledge_reverse_1.png)
@@ -95,7 +95,7 @@ A(GPT): Yes, Joy Biden was born in 1942, which is an even year.
 ![2 bit scaling law](./imgs/2bit_scaling_law.png)
 ![controlled experiments scaling law](./imgs/controlled_exp_scaling_law.png)
 ![add domain token](./imgs/add_domain-token.png)
-![summery](./imgs/summery_3_3.png)
+![summary](./imgs/summary_3_3.png)
 * information theoretically the number of bits in your data
 * a 7B model can store all English wiki + textbooks knowledge if sufficiently pretrained
 
@@ -107,17 +107,57 @@ A(GPT): Yes, Joy Biden was born in 1942, which is an even year.
 在做`controlled experiments`的时候，通过更改某些component比如说把"Gated MLP"换成"MLP"，等来探究模型的能力，比如knowledge capacity
 
 ### PART II
-2. Grade School Math and the Hidden Reasoning Process
+#### 2.1
+![outline](./imgs/part2_outline.png)
+![result 1](./imgs/resoning_result1.png)
+![iGSM](./imgs/iGSM.png)
+![result 2~3](./imgs/result_2_3.png)
+![reasoning level1](./imgs/reasoning_level1.png)
+* may be a preliminary signal of where `G` in `AGI` can come from (generalizing to skills not taught in the training data)
+* then how they make mistakes
+![make mistakes](./imgs/mistake_1.png)
+![how to improve](./imgs/mistake_how_to_improve.png)
+![depth matters](./imgs/depth_matters.png)
+* depth is necessary for reasoning because of the mental computation
+* cannot be mitigated using CoT--deciding what's the first CoT step already requires mental computation
+![summary](./imgs/summary_2_1.png)
+1. Grade School Math and the Hidden Reasoning Process
+* make the arithmetics very simple and only make the reasoning part hard
 
-2.2 Learn from the Mistakes
-
+#### 2.2
+Learn from the Mistakes
+![learn from mistakes](./imgs/learn_from_mistakes_outline.png)
+![aware of mistakes](./imgs/aware_of_mistakes.png)
+* retry with randomness (not really error correction)
+![learn from mistakes](./imgs/learn_from_mistakes_1.png)
+![learn from mistakes](./imgs/learn_from_mistakes_2.png)
+* very safe to include math data with mistakes and corrections; the more the better, no change to pretrain/inference process
+![need pre-train with mistakes](./imgs/pre-train_with_mistakes_data.png)
+* it's crucial to add "retry" data to pretrain, too late to do so at finetune stage
+* unlike error detection(easy via probing/finetune) error correction is a much harder skill(must learn from pretrain)
+![prepare mistakes data](./imgs/prepare_mistakes_data.png)
+* go for "dumber" idea
+* pretrain with fake mistakes $\Rightarrow$ no more regret
+![summary part2.2](./imgs/summary_2_2.png)
+![summary part2](./imgs/summary_2.png)
+### PART I
+![learn hierachical languege structures](./imgs/learn_hierachical_language_structures_outline.png)
+![design CFG data](./imgs/design_CFG_data.png)
+![language models learn from CFGs](./imgs/LMs_learn_from_CFGs.png)
+![learn hidden CFG trees](./imgs/learn_hidden_CFG_trees.png)
+![mask LMs cannot learn CFG trees](./imgs/MLM_cannot_learn_CFG_trees.png)
+* mask language modeling is about maybe ramdonly masking 15% of the tokens, and for this task of MLM, it's actually very easy for the model to locally decide what are the missing things by maybe only looking at the surrounding 10/20 tokens, and the model can decide what are the missing tokens.
+* but for a language modeling, it has to be able to pass actually all the way to the root in order to decide what is the next token it can generate.
+* Language modeling is a much harder than task than masked language modeling
+* that's perhaps why in real life, we do a lot of decoder-based models, never encoder-only
+![dynamic programming](./imgs/dynamic_programming.png)
+![summary part1](./imgs/summary_1.png)
 ## Physics of Language Models: 
 * <a href="https://arxiv.org/search/cs?searchtype=author&query=Allen-Zhu">Allen Zhu (Arxiv)</a>
 * <a href="http://zeyuan.allen-zhu.com/index.php">Allen Zhu's Homepage</a>
 
 关键字约定
 * CFGs: Context-Free Grammers
-
 ### Part 1: Learning Hierarchical Language Structures
 * <a href="https://arxiv.org/abs/2305.13673">Arxiv链接</a>
 * <a href="./papers/2305.13673v3.pdf">查看PDF</a>
