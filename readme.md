@@ -1,36 +1,112 @@
-<a href="https://www.youtube.com/watch?v=yBL7J0kgldU">ICLR 2024 Tutorials连接</a>
+<a href="https://www.youtube.com/watch?v=yBL7J0kgldU">ICLR 2024 Tutorials链接</a>
+
+# Theory of Language Models
+Physics在这个context下确实是一个幌子，实际探究的还是LM中的Theory或者说一些Mechanism
+* Theory
+   * Math (mathematics + learning theory)
+      * too slow
+   * Ethology / Animal Behavior Science (chain of thought, tree of thought)
 * There is still gap between ethology and physics
 
-* in order to study really scientifically like what is happening behind the scene, I believe that it really requires us to do very careful controlled studies to see why exactly this happens
 
 ### Concerns
 1. Studying models pre-trained using internet data is not "scientific enough"
-    * need full control of the data
+   * it's EASY to see bugs in GPT-4 / LLaMa-3
+      * Parity Check (奇偶矫正) the chance it gives correct answer is like flipping a random coin
+   * in order to study really scientifically like what is happening behind the scene, "I" believe that it really requires us to do very careful controlled studies to see why exactly this happens
+   * need full control of the data, if you only play with a pre-trained model, it's very hard to make scientific discoveries about what's exactly happening. 
 2. Studying individual models is not "scientific enough"
-    * want universal laws that holds for all LLMs, not just the july version of GPT-4o, regardless of the pretrain / finetune parameters, model sizes
+   * want universal laws that holds for all LLMs, not just the july version of GPT-4o, regardless of the pretrain / finetune parameters, model sizes
 3. studying `benchmarks` may not be "scientific enough"
-    * GSM8K only has 8k grade-school math problems
+   * GSM8K only has 8k grade-school math problems, if a model is good at solving those 8K problems, it could be because of data contamination (数据污染).
 4. tell us little about the internals of LLMs / how things work / why things fail
-
 
 ### Emphasizes
 1. decompose "Intelligence" into building blocks
-    * structures, knowledge, reasoning, etc.
-2. study in a controlled, idealized environment
-    * control the data, tweak the params
+   * structures, knowledge, reasoning, etc.
+2. build synthetic data to study in a controlled, idealized environment
+   * control the data, tweak the params (diffculty, type, amount, formats)
 3. highly repeatable experiments
-    * use 100M-size models, derive universal laws
+   * use 100M-size models, derive universal laws (focusing on individual blocks)
 4. probing techniques to see the inner workings
-    
+
+### PART III
+```
+Q: was Joe Biden born in an odd year
+A(GPT): Yes, Joy Biden was born in 1942, which is an even year.
+```
+
+#### 3.1 Knowledge Storage Extraction (提取)
+![question 3.1](./imgs/question3_1.png)
+##### result 1
+![mix training](./imgs/mix-training.png)
+* mix[ed~training $\Rightarrow$ **knowledge~extraction**
+* use synthetic biography of N individuals
+   * either from a set of sentence templates
+   * or can be LLM-generated 
+   * one biography per person  
+* create QA data for each biography $\Rightarrow$ only reveal half of the QA data to the training and evaluate the model out of the distribution on the remaining half of the individuals $\Rightarrow$ the high accuracy in the test data is call "the skill of knowledge extraction" here, the output for the training data is only memorization
+* Mix-Training = Pretrain with both the biography data (N) and the QA data (N/2)
+##### Result 2-3
+* instruct~finetune $\nRightarrow$ **knowledge~extraction**
+* Pretrain + Finetune $\nRightarrow$ Knowledge Extraction
+* What is multiple biography for a single person (Knowledge Augentation)
+   * Pretrain(Konwled]ge augmented) $\Rightarrow$ Knowledge Extraction
+##### Result 4-5
+![probing](./imgs/probing_1.png)
+![probing](./imgs/probing_2.png)
+
+* probing techniques to see **why** this happens
+* Probing $\rightarrow$ to study where and how the knowledge is stored inside a language model
+   * feed a biography entry as the input to the Transformer (pre-trained), and look at the hidden state of the last layer 
+   * without data augmentation, from all of the previous token positions, the probing accuracy is very close to 0
+##### Result 6
+![celebrity helps minority](./imgs/celebrity_helps_minority.png)
+* knowledge on `"celebrity" helps "minority"`
+   * no knowledge augmentation for the minority
+   * the minorities did not appear in the instruction finetune
+   but the accuracy is still high
+* Probing $\Rightarrow$ the mere inclusion of the celebrity data actually teaches the model to store knowledge in the right format, and that causes the model to perform well under minorities
+* so it's sufficient for you to augment only part of the people and that will give you knowledge extraction for all the people
+
+##### Result 7
+* bi-directional model like BERT $\nRightarrow$ **knowledge extraction**
+
+![summery](./imgs/summery_3_1.png)
+#### 3.2 Knowledge Manipulation (操纵)
+![question 3.2](./imgs/question3_2.png)
+![knowledge reverse](./imgs/knowledge_reverse_1.png)
+![knowledge reverse](./imgs/knowledge_reverse_2.png)
+![manipulation tasks](./imgs/different_manipulation_tasks.png)
+![summary](./imgs/manipulation_summary.png)
+
+* like performing knowledge classification, the parity test (奇偶测试)
+* Knowledge Manipulation is `Impossible` without CoT
+   * for knowledge tasks, it cannot always has to write down the explict knowledge before it can do any simple operations on the knowledge (classification, comparison and ranking, etc.)
+* Reverse Search
+   * ask who was born on this data, in this city, and works for ... `ZERO ACCURACY`
+   * unless the data is already knowledge reversed (put the name at the very end of the biography)
+      * reverse knowledge in the pretrain stage, the fine-tune stage will be to late
+
+![manipulation](./imgs/manipulation_1.png)
+#### 3.3 Knowledge Capacity Scaling Law
+![scaling law](./imgs/scaling_law_1.png)
+![universal scaling law](./imgs/universal_scaling_law.png)
+![2 bit scaling law](./imgs/2bit_scaling_law.png)
+![controlled experiments scaling law](./imgs/controlled_exp_scaling_law.png)
+![add domain token](./imgs/add_domain-token.png)
+![summery](./imgs/summery_3_3.png)
+* information theoretically the number of bits in your data
+* a 7B model can store all English wiki + textbooks knowledge if sufficiently pretrained
+
+* the mere existence of the junk data in the pre-train actually significantly harms LLM's knowledge capacity on the good data 
+
 * 很重要的实验方法：
 为了防止使用的数据已经存在于大模型的pre-train/finetune datasets中，直接使用合成数据，构建一些假的人物传记，然后为每个人物传记都制定QA集合，之后分train/test set进行训练，在训练集上效果好，那叫memorization，只有测试集上效果好那才叫Extraction
 
-3.1 Knowledge Extraction    (知识提取)
-3.2 Knowledge Manipulation  (知识操纵)
-    * Knowledge Manipulation is `Impossible` without CoT
-3.3 Knowledge Capacity Scaling Law
+在做`controlled experiments`的时候，通过更改某些component比如说把"Gated MLP"换成"MLP"，等来探究模型的能力，比如knowledge capacity
 
-
+### PART II
 2. Grade School Math and the Hidden Reasoning Process
 
 2.2 Learn from the Mistakes
