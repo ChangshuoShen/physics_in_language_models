@@ -162,7 +162,6 @@ Learn from the Mistakes
 * <a href="https://arxiv.org/abs/2305.13673">Arxiv链接</a>
 * <a href="./papers/2305.13673v3.pdf">查看PDF</a>
 #### 摘要提取
-
 1. **研究背景**：
    - Transformer语言模型效果显著但结构复杂，理解其内部机制面临挑战。现有研究主要集中于模型如何处理简单任务（如名称复制或选择）。
 
@@ -182,6 +181,15 @@ Learn from the Mistakes
 
 5. **研究意义**：
    - 该研究为理解Transformer模型在复杂结构上的表现提供了洞见，有助于进一步优化模型的结构和训练策略。
+
+#### 其中一些点
+* 为什么设置CGF(Context Free Grammers)进行研究
+   * 层次结构的学习：CFGs可以生成具有复杂结构的句子，帮助研究LMs如何捕捉和处理这些结构
+   * 长距离依赖：CFG生成的句子可以包含长距离依赖关系，测试LMs在处理距离较远的上下文时的表现
+   * 局部歧义：CFG生成的句子可能具有局部歧义，需要全局规划和DP算法来解析，可以用于研究模型如何处理不确定性和复杂性
+   * 模型内部机制的提示：通过分析模型学习CFG的过程，可以更好的理解模型的注意力模式和隐藏状态如何捕捉语言结构
+   * 模型健壮性：引入结构和语法错误，研究模型在面对损坏数据时的表现
+
 
 ### Part 2.1, Grade-School Math and the Hidden Reasoning Process
 * <a href="https://arxiv.org/abs/2407.20311">Arxiv链接</a>
